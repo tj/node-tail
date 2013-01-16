@@ -6,7 +6,8 @@
 var fs = require('fs')
   , stat = fs.statSync
   , open = fs.openSync
-  , read = fs.readSync;
+  , read = fs.readSync
+  , close = fs.closeSync;
 
 /**
  * Tail `len` of file `path`,
@@ -26,5 +27,6 @@ module.exports = function(path, len){
   var off = Math.max(0, s.size - len);
   var buf = new Buffer(len);
   var n = read(fd, buf, 0, len, off);
+  close(fd);
   return buf;
 };
